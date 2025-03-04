@@ -23,10 +23,12 @@ const Header = ({ cart }) => {
       setTotalProducts(0);
     }
   }, [cart]);
-
+  
+  const API_URL = process.env.REACT_API;
+  
   const handleLogout = async () => {
     try {
-      await axios.post("http://localhost:3000/api/auth/logout", {}, { withCredentials: true });
+      await axios.post(`${API_URL}/api/auth/logout`, {}, { withCredentials: true });
       setUser(null);
       navigate("/login-page");
     } catch (error) {

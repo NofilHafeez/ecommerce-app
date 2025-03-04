@@ -8,6 +8,7 @@ const RegisterPage = () => {
     const [credentials, setCredentials] = useState({name: "", email: "", password: "" });
     const [message, setMessage] = useState(null);
     const navigate = useNavigate();
+    const API_URL = process.env.REACT_API;
 
     
       
@@ -18,7 +19,7 @@ const RegisterPage = () => {
     const handleRegister = async (e) => {
         e.preventDefault();
         try {
-            const response = await axios.post("http://localhost:3000/api/auth/register", credentials, {
+            const response = await axios.post(`${API_URL}/api/auth/register`, credentials, {
                 withCredentials: true,
             });
     

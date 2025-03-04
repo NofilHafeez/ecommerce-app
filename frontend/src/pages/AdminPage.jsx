@@ -18,6 +18,8 @@ const AdminPage = () => {
   });
   const [products, setProducts] = useState([]);
 
+  const API_URL = process.env.REACT_API;
+
   useEffect(() => {
     locomotiveScroll.current = new LocomotiveScroll({
       el: scrollRef.current,
@@ -77,7 +79,7 @@ const AdminPage = () => {
   
     try {
       const res = await axios.post(
-        "http://localhost:3000/api/product/create-product",
+        `${API_URL}/api/product/create-product`,
         formData,
         {
           withCredentials: true,
@@ -115,7 +117,7 @@ const AdminPage = () => {
 
   const fetchProducts = async () => {
     try {
-      const res = await axios.get("http://localhost:3000/api/product/get-products", {
+      const res = await axios.get(`${API_URL}/api/product/get-products`, {
         withCredentials: true,
       });
       setProducts(res.data.products);
@@ -127,7 +129,7 @@ const AdminPage = () => {
   const deleteProduct = async (id) => {
     try {
       const res = await axios.post(
-        `http://localhost:3000/api/product/delete-product/${id}`,
+        `${API_URL}/api/product/delete-product/${id}`,
         {},
         { withCredentials: true }
       );

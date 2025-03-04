@@ -8,6 +8,7 @@ const LoginPage = () => {
   const { setUser, fetchUser } = useContext(AuthContext); // ✅ Use AuthContext
   const [message, setMessage] = useState(null);
   const [credentials, setCredentials] = useState({ email: "", password: "" });
+  const API_URL = process.env.REACT_API;
 
   const handleChange = (e) => {
     setCredentials({ ...credentials, [e.target.name]: e.target.value });
@@ -16,7 +17,7 @@ const LoginPage = () => {
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post("http://localhost:3000/api/auth/login", credentials, {
+      const response = await axios.post(`${API_URL}/api/auth/login`, credentials, {
         withCredentials: true, // Include cookies
       });
 

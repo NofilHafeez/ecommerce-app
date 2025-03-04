@@ -7,6 +7,7 @@ const PaymentSuccess = ({ setCart }) => {
   const sessionId = searchParams.get("session_id");
   const navigate = useNavigate();
   const requestSent = useRef(false); // ✅ Prevent duplicate requests
+  const API_URL = process.env.REACT_API;
 
   useEffect(() => {
     if (sessionId && !requestSent.current) {
@@ -16,7 +17,7 @@ const PaymentSuccess = ({ setCart }) => {
 
       axios
         .post(
-          "http://localhost:3000/api/order/adding-to-order",
+          `${API_URL}/api/order/adding-to-order`,
           { productIds: cartItems.map((item) => item.product._id), sessionId },
           { withCredentials: true }
         )

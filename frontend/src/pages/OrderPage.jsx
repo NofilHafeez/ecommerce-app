@@ -11,7 +11,8 @@ const OrderPage = () => {
   const [error, setError] = useState(null);
   const sessionId = searchParams.get("sessionId");
   const scrollRef = useRef(null);
-
+  const API_URL = process.env.REACT_API;
+  
   useEffect(() => {
     if (!scrollRef.current) return; // Ensure ref exists before initializing Locomotive
     
@@ -40,11 +41,11 @@ const OrderPage = () => {
         
         // ✅ If a session ID exists, fetch the order related to that session
         if (sessionId) {
-          response = await axios.get(`http://localhost:3000/api/payment/check-payment/${sessionId}`);
+          response = await axios.get(`${API_URL}/api/payment/check-payment/${sessionId}`);
           setOrders([response.data.order]); // Convert single object to array for consistency
         } else {
           // ✅ Fetch all orders for the logged-in user
-          response = await axios.get("http://localhost:3000/api/order/get-orders", {
+          response = await axios.get(`${API_URL}/api/order/get-orders`, {
             withCredentials: true,
           });
           setOrders(response.data.orders);

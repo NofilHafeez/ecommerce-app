@@ -6,10 +6,11 @@ export const AuthContext = createContext();
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
+  const API_URL = process.env.REACT_API;
 
   const fetchUser = async () => {
     try {
-      const response = await axios.get("http://localhost:3000/api/auth/get-user", {
+      const response = await axios.get(`${API_URL}/api/auth/get-user`, {
         withCredentials: true, // Sends cookies automatically
       });
 

@@ -22,10 +22,12 @@ const AppContent = () => {
   const location = useLocation(); // Get the current route
   const [cart, setCart] = useState(null);
 
+  const API_URL = process.env.REACT_API;
+
   // Fetch Cart Products
   const fetchCartProducts = async () => {
     try {
-      const res = await axios.get("http://localhost:3000/api/cart/get-cart-products", {
+      const res = await axios.get(`${API_URL}/api/cart/get-cart-products`, {
         withCredentials: true,
       });
       setCart(res.data.cart);

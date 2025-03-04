@@ -11,12 +11,13 @@ const CheckoutPage = ({ cart, setCart }) => {
   const locoScroll = useRef(null);
   const cartItems = cart?.cartItems || [];
   const navigate = useNavigate();
+  const API_URL = process.env.REACT_API;
 
   const makePayment = async () => {
     const stripe = await loadStripe("pk_test_51QmySuFLiCAMHXQDPLrrqt8D0snwDv1QXOuB4khESKT2iMiNKw8sIU8G0x6CsVIuqQhoHwxj8EJfanWSc5JriSfN001DpSZOo9");
 
     const res = await axios.post(
-      "http://localhost:3000/api/payment/create-checkout-session",
+      `${API_URL}/api/payment/create-checkout-session`,
       { cartItems },
       { withCredentials: true }
     );
@@ -81,7 +82,7 @@ const CheckoutPage = ({ cart, setCart }) => {
 
   const handleRemoveItem = async (productId) => {
     try {
-      await axios.post(`http://localhost:3000/api/cart/removing-from-carts/${productId}`, {}, { withCredentials: true });
+      await axios.post(`${API_URL}/api/cart/removing-from-carts/${productId}`, {}, { withCredentials: true });
 
       setCart((prevCart) => {
         const updatedCart = {
@@ -113,7 +114,7 @@ const CheckoutPage = ({ cart, setCart }) => {
     };
 
     try {
-      await axios.post("http://localhost:3000/api/checkout/adding-to-checkout", requestBody, { withCredentials: true });
+      await axios.post(`${API_URL}/api/checkout/adding-to-checkout`, requestBody, { withCredentials: true });
     } catch (err) {
       console.error("Checkout failed", err);
     }

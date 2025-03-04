@@ -8,6 +8,7 @@ import axios from "axios";
 const CartPage = ({ cart, setCart }) => {
   const scrollRef = useRef(null);
   const scrollInstance = useRef(null);
+  const API_URL = process.env.REACT_API;
 
   useEffect(() => {
     scrollInstance.current = new LocomotiveScroll({
@@ -44,7 +45,7 @@ const CartPage = ({ cart, setCart }) => {
   // Remove item
   const handleRemoveItem = async (productId) => {
     try {
-      await axios.post(`http://localhost:3000/api/cart/removing-from-carts/${productId}`, {}, { withCredentials: true });
+      await axios.post(`${API_URL}/api/cart/removing-from-carts/${productId}`, {}, { withCredentials: true });
 
       setCart((prevCart) => ({
         ...prevCart,

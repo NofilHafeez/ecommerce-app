@@ -19,6 +19,7 @@ const ProductPage = ({ fetchCartProducts }) => {
   const [searchTerm, setSearchTerm] = useState("");
   const [category, setCategory] = useState("");
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const API_URL = process.env.REACT_API;
 
   useEffect(() => {
     if (categoryFromUrl) {
@@ -31,7 +32,7 @@ const ProductPage = ({ fetchCartProducts }) => {
 
   const addProductCart = async (id) => {
     try {
-      await axios.post(`http://localhost:3000/api/cart/adding-to-carts/${id}`, {}, { withCredentials: true });
+      await axios.post(`${API_URL}/api/cart/adding-to-carts/${id}`, {}, { withCredentials: true });
       fetchCartProducts();
     } catch (err) {
       console.error("Error adding products:", err);
@@ -57,7 +58,7 @@ const ProductPage = ({ fetchCartProducts }) => {
 
   const fetchProducts = async () => {
     try {
-      const res = await axios.get("http://localhost:3000/api/product/get-products", { withCredentials: true });
+      const res = await axios.get(`${API_URL}/api/product/get-products`, { withCredentials: true });
       setProducts(res.data.products);
       setFilteredProducts(res.data.products);
     } catch (err) {
