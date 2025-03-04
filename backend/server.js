@@ -31,7 +31,7 @@ const flash = require('connect-flash');
 
 app.use(bodyParser.json());
 app.use(cors({ 
-    origin: "https://ecommerce-pb1lwa086-nofil-abdul-hafeezs-projects.vercel.app/", // Your frontend URL
+    origin: process.env.REACT_APP_API_URL, // Your frontend URL
     credentials: true // Allow cookies
 }));
 app.use(express.urlencoded({ extended: true }));
