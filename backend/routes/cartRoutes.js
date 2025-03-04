@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const { addingToCart, updatingFromCarts, removingFromCarts } = require('../controllers/cartController');
 const authenticateUser = require('../middlewares/authMiddleware');
-const cartModel = require('../models/cart');
+const cartModel = require('../models/Cart');
 
 router.get("/", ((req, res) => {
     res.send('Cart Route is Working');
