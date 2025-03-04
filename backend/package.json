@@ -3,9 +3,9 @@
   "version": "1.0.0",
   "main": "server.js",
   "scripts": {
-    "start": "cross-env NODE_ENV=production node server.js",
+    "start": "node server.js",
     "dev": " cross-env NODE_ENV=development $env:DEBUG=development  npx nodemon server.js",
-    "build": "react-scripts build",
+    "build": "echo 'Skipping build step...'",
     "server": "nodemon server.js",
     "deploy": "npm run build && pm2 start server.js --env production"
   },
