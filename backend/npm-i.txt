@@ -1,0 +1,16 @@
+npm init -y
+express
+body-parser
+jwt
+bcrypt
+crypto
+cookie-parser
+debug
+dotenv
+config
+express-session
+mongoose
+multer
+nodemon
+connect-flash
+@sendgrid/mail
