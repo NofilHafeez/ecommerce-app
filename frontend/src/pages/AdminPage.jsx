@@ -18,7 +18,7 @@ const AdminPage = () => {
   });
   const [products, setProducts] = useState([]);
 
-  const API_URL = process.env.REACT_API;
+  const API_URL = process.env.REACT_APP_API_URL;
 
   useEffect(() => {
     locomotiveScroll.current = new LocomotiveScroll({

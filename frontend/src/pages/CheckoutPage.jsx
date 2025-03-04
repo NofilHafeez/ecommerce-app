@@ -11,7 +11,7 @@ const CheckoutPage = ({ cart, setCart }) => {
   const locoScroll = useRef(null);
   const cartItems = cart?.cartItems || [];
   const navigate = useNavigate();
-  const API_URL = process.env.REACT_API;
+  const API_URL = process.env.REACT_APP_API_URL;
 
   const makePayment = async () => {
     const stripe = await loadStripe("pk_test_51QmySuFLiCAMHXQDPLrrqt8D0snwDv1QXOuB4khESKT2iMiNKw8sIU8G0x6CsVIuqQhoHwxj8EJfanWSc5JriSfN001DpSZOo9");

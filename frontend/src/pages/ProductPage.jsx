@@ -19,7 +19,7 @@ const ProductPage = ({ fetchCartProducts }) => {
   const [searchTerm, setSearchTerm] = useState("");
   const [category, setCategory] = useState("");
   const [sidebarOpen, setSidebarOpen] = useState(false);
-  const API_URL = process.env.REACT_API;
+  const API_URL = process.env.REACT_APP_API_URL;
 
   useEffect(() => {
     if (categoryFromUrl) {

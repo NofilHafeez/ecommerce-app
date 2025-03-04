@@ -8,7 +8,7 @@ import axios from "axios";
 const CartPage = ({ cart, setCart }) => {
   const scrollRef = useRef(null);
   const scrollInstance = useRef(null);
-  const API_URL = process.env.REACT_API;
+  const API_URL = process.env.REACT_APP_API_URL;
 
   useEffect(() => {
     scrollInstance.current = new LocomotiveScroll({

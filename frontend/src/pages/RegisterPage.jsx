@@ -8,7 +8,7 @@ const RegisterPage = () => {
     const [credentials, setCredentials] = useState({name: "", email: "", password: "" });
     const [message, setMessage] = useState(null);
     const navigate = useNavigate();
-    const API_URL = process.env.REACT_API;
+    const API_URL = process.env.REACT_APP_API_URL;
 
     
       

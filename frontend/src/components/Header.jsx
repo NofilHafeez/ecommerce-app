@@ -24,7 +24,7 @@ const Header = ({ cart }) => {
     }
   }, [cart]);
   
-  const API_URL = process.env.REACT_API;
+  const API_URL = process.env.REACT_APP_API_URL;
   
   const handleLogout = async () => {
     try {
