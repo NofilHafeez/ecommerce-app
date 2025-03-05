@@ -31,7 +31,7 @@ const flash = require('connect-flash');
 
 app.use(bodyParser.json());
 app.use(cors({ 
-    origin: process.env.REACT_APP_API_URL, // Your frontend URL
+    origin: "http://localhost:5174", // Your frontend URL
     credentials: true // Allow cookies
 }));
 app.use(express.urlencoded({ extended: true }));

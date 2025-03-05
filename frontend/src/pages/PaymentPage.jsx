@@ -9,11 +9,13 @@ const PaymentPage = () => {
   const scrollRef = useRef(null);
   const navigate = useNavigate();
   const [checkout, setCheckout] = useState([]);
+  const API_URL = import.meta.env.VITE_API_URL;
+
 
   // Fetch Cart Products
   const fetchCheckoutProducts = async () => {
     try {
-      const res = await axios.get("http://localhost:3000/api/checkout/get-checkout-products", {
+      const res = await axios.get(`${API_URL}/api/checkout/get-checkout-products`, {
         withCredentials: true,
       });
       setCheckout(res.data.selectedProducts || []); // Ensure it's an array

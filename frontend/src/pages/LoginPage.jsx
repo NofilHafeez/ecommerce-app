@@ -8,7 +8,8 @@ const LoginPage = () => {
   const { setUser, fetchUser } = useContext(AuthContext); // ✅ Use AuthContext
   const [message, setMessage] = useState(null);
   const [credentials, setCredentials] = useState({ email: "", password: "" });
-  const API_URL = process.env.REACT_APP_API_URL;
+  const API_URL = import.meta.env.VITE_API_URL;
+
 
   const handleChange = (e) => {
     setCredentials({ ...credentials, [e.target.name]: e.target.value });

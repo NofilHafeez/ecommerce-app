@@ -6,7 +6,9 @@ export const AuthContext = createContext();
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
-  const API_URL = process.env.REACT_APP_API_URL;
+  
+  const API_URL = import.meta.env.VITE_API_URL;
+
 
   const fetchUser = async () => {
     try {

@@ -21,8 +21,8 @@ const AppContent = () => {
   const { user } = useContext(AuthContext); // ✅ Get user from context
   const location = useLocation(); // Get the current route
   const [cart, setCart] = useState(null);
+  const API_URL = import.meta.env.VITE_API_URL;
 
-  const API_URL = process.env.REACT_API;
 
   // Fetch Cart Products
   const fetchCartProducts = async () => {
