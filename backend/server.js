@@ -3,7 +3,7 @@ const dotenv = require('dotenv');
 const cors = require("cors");
 const path = require('path');
 const connectDB = require('./config/db'); // Path to your DB connection
-//const createAdmin = require('./utils/createAdmin');
+const createAdmin = require('./utils/createAdmin');
 
 // Load the correct .env file based on environment
 if (process.env.NODE_ENV === 'production') {
