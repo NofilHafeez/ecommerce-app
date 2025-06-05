@@ -63,7 +63,7 @@ app.use((err, req, res, next) => {
 });
 
 connectDB();
-//createAdmin();
+createAdmin();
 
 
 app.listen(3000, () => {
