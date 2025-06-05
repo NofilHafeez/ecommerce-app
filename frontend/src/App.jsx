@@ -1,4 +1,4 @@
-import React, {useEffect, useState, useContext} from "react";
+import {useEffect, useState} from "react";
 import { BrowserRouter as Router, Routes, Route, useLocation } from "react-router-dom";
 import HomePage from "./pages/HomePage";
 import ProductPage from "./pages/ProductPage";
@@ -9,16 +9,14 @@ import OrderPage from "./pages/OrderPage";
 import AdminPage from "./pages/AdminPage";
 import RegisterPage from "./pages/RegisterPage";
 import LoginPage from "./pages/LoginPage";
-import { AuthContext } from "./context/AuthContext";
 import AdminRoute from "./protectedRoute/AdminRoute";
 import Unauthorized from "./pages/Unauthorized";
 import PaymentPage from "./pages/PaymentPage";
 import PaymentSuccess from "./pages/PaymentSuccess";
-import PaymentFailure from "./pages/PaymentFailure";
+
 import axios from "axios";
 
-const AppContent = () => {
-  const { user } = useContext(AuthContext); // ✅ Get user from context
+const AppContent = () => { // ✅ Get user from context
   const location = useLocation(); // Get the current route
   const [cart, setCart] = useState(null);
   const API_URL = import.meta.env.VITE_API_URL;
@@ -45,8 +43,8 @@ const AppContent = () => {
      {location.pathname !== "/register-page" && location.pathname !== "/login-page" && <Header cart={cart} />}
 
       <Routes>
-        <Route path="/" element={<HomePage />} />
-        <Route path="/products" element={<ProductPage fetchCartProducts={fetchCartProducts} />} />
+        <Route path="/home-page" element={<HomePage />} />
+        <Route path="/" element={<ProductPage fetchCartProducts={fetchCartProducts} />} />
         <Route path="/cart" element={<CartPage cart={cart} setCart={setCart}/>} />
         <Route path="/checkout" element={<CheckoutPage cart={cart} setCart={setCart} />} />
         <Route path="/payment" element={<PaymentPage cart={cart} setCart={setCart} />} />

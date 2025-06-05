@@ -36,20 +36,10 @@ module.exports.createProducts = async (req, res) => {
         await product.save();
 
         
-        res.status(201).json({
-            message: 'Product Created successfully',
-            product: {
-                productBy: product.createdBy,
-                _id: product._id,
-                name: product.name,
-                description: product.description,
-                message: 'Image uploaded successfully',
-                imageUrl: req.file.path,
-            },
-        });
+        res.status(201).json({ success: ["Product Creates Successful!"] });
 
     } catch (err) {
-        res.status(500).send(err.message);
+         res.status(500).json({ flash: ["Server error, please try again later"] });
     }
 };
 
@@ -77,17 +67,11 @@ module.exports.updateProducts = async (req, res) => {
              }
          );     
          
-         res.status(201).json({
-             message: 'Updated Product Created successfully',
-             updatedProduct: {
-                 id: updatedProduct._id,
-                 name: updatedProduct.name,
-                 description:updatedProduct.description,
-             },
-         });
+        res.status(201).json({ success: ["Product Updates Successful!"] });
  
      } catch (err) {
-         res.status(500).send(err.message);
+        res.status(500).json({ flash: ["Server error, please try again later"] });
+
      }
  };
 
@@ -96,12 +80,12 @@ module.exports.deleteProducts = async (req, res) => {
     try {
          let deletedProduct = await productModel.findOneAndDelete({_id: req.params.id});     
          
-         res.status(201).json({
-             message: 'Product Deleted successfully',
-         });
+        res.status(201).json({ success: ["Product Updates Successful!"] });
+
  
      } catch (err) {
-         res.status(500).send(err.message);
+        res.status(500).json({ flash: ["Server error, please try again later"] });
+
      }
  };
 

@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import { useEffect, useRef } from "react";
 import LocomotiveScroll from "locomotive-scroll";
 import "locomotive-scroll/dist/locomotive-scroll.css";
 import Footer from "../components/Footer";
@@ -10,24 +10,6 @@ const CartPage = ({ cart, setCart }) => {
   const scrollInstance = useRef(null);
   const API_URL = import.meta.env.VITE_API_URL;
 
-
-  useEffect(() => {
-    scrollInstance.current = new LocomotiveScroll({
-      el: scrollRef.current,
-      smooth: true,
-      lerp: 0.1,
-    });
-
-    setTimeout(() => {
-      scrollInstance.current.update();
-    }, 500);
-
-    return () => {
-      if (scrollInstance.current) {
-        scrollInstance.current.destroy();
-      }
-    };
-  }, []);
 
   const cartItems = cart?.cartItems || [];
 

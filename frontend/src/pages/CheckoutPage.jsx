@@ -1,5 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
-import LocomotiveScroll from "locomotive-scroll";
+import { useState, useEffect, useRef } from "react";
 import "locomotive-scroll/dist/locomotive-scroll.css";
 import Footer from "../components/Footer";
 import { useNavigate } from "react-router-dom";
@@ -10,7 +9,6 @@ const CheckoutPage = ({ cart, setCart }) => {
   const scrollRef = useRef(null);
   const locoScroll = useRef(null);
   const cartItems = cart?.cartItems || [];
-  const navigate = useNavigate();
   const API_URL = import.meta.env.VITE_API_URL;
 
 
@@ -39,33 +37,6 @@ const CheckoutPage = ({ cart, setCart }) => {
   });
 
   const [paymentMethod, setPaymentMethod] = useState("");
-
-  // ✅ Initialize Locomotive Scroll
-  useEffect(() => {
-    if (!scrollRef.current) return;
-
-    locoScroll.current = new LocomotiveScroll({
-      el: scrollRef.current,
-      smooth: true,
-      lerp: 0.04, // Adjust for smoother scrolling
-    });
-
-    return () => {
-      if (locoScroll.current) {
-        locoScroll.current.destroy();
-        locoScroll.current = null;
-      }
-    };
-  }, []);
-
-  // ✅ Update Locomotive when cart changes
-  useEffect(() => {
-    setTimeout(() => {
-      if (locoScroll.current) {
-        locoScroll.current.update();
-      }
-    }, 500);
-  }, [cart]);
 
   const handleQuantityChange = (id, newQuantity) => {
     if (newQuantity < 1) return;

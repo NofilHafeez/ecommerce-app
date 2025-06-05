@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";  
+import { useState, useContext } from "react";  
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
@@ -28,7 +28,7 @@ const LoginPage = () => {
         await fetchUser(); // ✅ Fetch user after login
 
         setTimeout(() => {
-          navigate("/products"); // Redirect after login
+          navigate("/"); // Redirect after login
         }, 1000);
       }
     } catch (error) {
@@ -45,14 +45,14 @@ const LoginPage = () => {
           {message.text}
         </div>
       )}
-f
-      <div className="w-[400px] bg-white shadow-lg rounded-2xl p-8 text-black">
+
+      <div className="w-[400px] p-8 text-black">
         <h2 className="text-3xl font-bold mb-4 text-center">Login</h2>
         <p className="text-center text-gray-500 mb-5">Enter your details to access your account</p>
 
         <form onSubmit={handleLogin} className="flex flex-col gap-4">
-          <input type="email" name="email" placeholder="Email" className="border border-gray-300 p-3 rounded-lg outline-none focus:border-black" value={credentials.email} onChange={handleChange} required />
-          <input type="password" name="password" placeholder="Password" className="border border-gray-300 p-3 rounded-lg outline-none focus:border-black" value={credentials.password} onChange={handleChange} required />
+          <input type="email" name="email" placeholder="Email" className="border border-black p-3 rounded-lg outline-none focus:border-black" value={credentials.email} onChange={handleChange} required />
+          <input type="password" name="password" placeholder="Password" className="border border-black p-3 rounded-lg outline-none focus:border-black" value={credentials.password} onChange={handleChange} required />
 
           <button type="submit" className="bg-black text-white py-3 rounded-lg hover:bg-gray-900">
             Login

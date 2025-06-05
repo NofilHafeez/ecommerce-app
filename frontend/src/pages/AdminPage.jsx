@@ -1,13 +1,11 @@
-import React, { useState, useEffect, useRef } from "react";
-import LocomotiveScroll from "locomotive-scroll";
-import "locomotive-scroll/dist/locomotive-scroll.css";
+import  { useState, useEffect} from "react";
 import Footer from "../components/Footer";
 import axios from "axios";
 
 const AdminPage = () => {
-  const scrollRef = useRef(null);
-  const locomotiveScroll = useRef(null);
+
   const [message, setMessage] = useState(null);
+  const [loading, setLoading] = useState(false);
   const [newProduct, setNewProduct] = useState({
     name: "",
     price: "",
@@ -22,27 +20,8 @@ const AdminPage = () => {
 
 
   useEffect(() => {
-    locomotiveScroll.current = new LocomotiveScroll({
-      el: scrollRef.current,
-      smooth: true,
-      smartphone: { smooth: true },
-      tablet: { smooth: true },
-    });
-
-    return () => locomotiveScroll.current.destroy();
-  }, []);
-
-  useEffect(() => {
     fetchProducts();
   }, []);
-
-  useEffect(() => {
-    if (locomotiveScroll.current) {
-      setTimeout(() => {
-        locomotiveScroll.current.update();
-      }, 500);
-    }
-  }, [products]);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -77,7 +56,7 @@ const AdminPage = () => {
     formData.append("stock", newProduct.stock);
     formData.append("price", newProduct.price);
     formData.append("image", newProduct.image);
-  
+   setLoading(true);
     try {
       const res = await axios.post(
         `${API_URL}/api/product/create-product`,
@@ -88,33 +67,36 @@ const AdminPage = () => {
         }
       );
   
-      if (res.data.success) {
-        setMessage({ type: "success", text: "Product added successfully!" });
-  
-        // **Update state immediately**
-        setProducts((prevProducts) => [...prevProducts, res.data.product]);
-  
-        // **Clear form fields**
-        setNewProduct({
-          name: "",
-          price: "",
-          image: "",
-          description: "",
-          category: "",
-          stock: "",
-        });
-  
-        // Update Locomotive Scroll
-        setTimeout(() => {
-          if (locomotiveScroll.current) locomotiveScroll.current.update();
-        }, 500);
-      }
+        if (res.data.success) {
+      setMessage({ type: "success", text: "Product added successfully!" });
+      fetchProducts(); // ✅ Refresh full list
+      setNewProduct({
+        name: "",
+        price: "",
+        image: "",
+        description: "",
+        category: "",
+        stock: "",
+      });
+    }
+
     } catch (err) {
       console.error("Error adding product:", err);
       setMessage({ type: "error", text: "Failed to add product. Try again!" });
+    } finally { 
+      setLoading(false);
     }
   };
   
+  useEffect(() => {
+  if (message) {
+    const timer = setTimeout(() => {
+      setMessage(null);
+    }, 3000);
+    return () => clearTimeout(timer);
+  }
+}, [message]);
+
 
   const fetchProducts = async () => {
     try {
@@ -136,18 +118,10 @@ const AdminPage = () => {
       );
   
       if (res.data.success) {
-        setMessage({ type: "success", text: "Product deleted successfully!" });
-  
-        // **Update state immediately**
-        setProducts((prevProducts) =>
-          prevProducts.filter((product) => product._id !== id)
-        );
-  
-        // Update Locomotive Scroll
-        setTimeout(() => {
-          if (locomotiveScroll.current) locomotiveScroll.current.update();
-        }, 500);
-      }
+  setMessage({ type: "success", text: "Product deleted successfully!" });
+  fetchProducts(); // ✅ Refresh full list
+}
+
     } catch (err) {
       console.error("Error deleting product:", err);
       setMessage({ type: "error", text: "Failed to delete product." });
@@ -156,18 +130,10 @@ const AdminPage = () => {
   
 
   return (
-    <div ref={scrollRef} data-scroll-container className="w-full min-h-screen bg-[#ededed]">
-      {message && (
-        <div
-          className={`fixed top-0 left-1/2 transform -translate-x-1/2 px-4 py-2 rounded text-white ${
-            message.type === "error" ? "bg-red-500" : "bg-green-500"
-          }`}
-        >
-          {message.text}
-        </div>
-      )}
+    <div className="w-full min-h-screen bg-[#ededed]">
+          
 
-      <div data-scroll-section className="w-full min-h-screen flex flex-col items-center">
+      <div  className="w-full min-h-screen flex flex-col items-center">
         <h1 className="text-3xl text-black pt-30 text-center">Admin Page</h1>
 
         <div className="w-full max-w-4xl p-10 pb-30 pt-20 flex flex-col gap-10">
@@ -236,10 +202,22 @@ const AdminPage = () => {
                   required
                 />
               </div>
+            <div>
+                  {message && (
+            <div
+              className={`rounded text-black text-center ${
+                message.type === "error" ? "text-red-500" : "text-green-500"
+              }`}
+            >
+              {message.text}
+            </div>
+          )}
+
+      </div>
 
               <button type="submit" className="col-span-2 w-full py-2 px-5 bg-gray-500 text-white rounded mt-4">
-                Add Product
-              </button>
+                {!loading ? "Add Product" : "Creating.."} 
+                 </button>
             </form>
           </div>
 
@@ -264,7 +242,7 @@ const AdminPage = () => {
         </div>
       </div>
 
-      <div data-scroll-section>
+      <div>
         <Footer />
       </div>
     </div>

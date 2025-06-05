@@ -35,7 +35,7 @@ export const AuthProvider = ({ children }) => {
 
   return (
     <AuthContext.Provider value={{ user, setUser, fetchUser }}>
-      {loading ? <p>Loading...</p> : children}
+      {loading ? <p className="flex justify-center items-center">Loading...</p> : children}
     </AuthContext.Provider>
   );
 };

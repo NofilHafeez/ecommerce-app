@@ -1,17 +1,15 @@
-import React, { useState, useEffect, useContext } from "react";
+import  { useState, useEffect, useContext } from "react";
 import axios from "axios";
 import { FiSearch } from "react-icons/fi";
 import { IoBagOutline } from "react-icons/io5";
 import { VscAccount } from "react-icons/vsc";
-import { HiOutlineMenu, HiX } from "react-icons/hi";
 import { Link, useNavigate } from "react-router-dom";
 import profilePlaceholder from "../assets/profile.png";
 import { AuthContext } from "../context/AuthContext.jsx";
 
 const Header = ({ cart }) => {
-  const { user, setUser, fetchUser } = useContext(AuthContext);
+  const { user, setUser} = useContext(AuthContext);
   const [isOpen, setIsOpen] = useState(false);
-  const [menuOpen, setMenuOpen] = useState(false);
   const navigate = useNavigate();
   const [totalProducts, setTotalProducts] = useState(0);
 
@@ -40,17 +38,7 @@ const Header = ({ cart }) => {
   return (
     <div>
       <div className="bg-white fixed top-0 left-0 text-black z-[1000] flex w-full justify-between items-center h-16 px-5 shadow-md">
-        {/* Mobile Menu Button */}
-        <button className="md:hidden text-xl" onClick={() => setMenuOpen(!menuOpen)}>
-          {menuOpen ? <HiX /> : <HiOutlineMenu />}
-        </button>
-
-        {/* Navigation Links (Hidden on Small Screens) */}
-        <div className="hidden md:flex gap-5 text-md">
-          <Link to="/mens" className="hover:underline">Mens</Link>
-          <Link to="/shoes" className="hover:underline">Shoes</Link>
-        </div>
-
+      
         {/* Logo */}
         <div className="font-bold text-xl">
           <Link to="/">BCKWRD</Link>
@@ -58,7 +46,6 @@ const Header = ({ cart }) => {
 
         {/* Icons */}
         <div className="flex gap-7 text-xl relative">
-          <Link to="/search" className="hover:text-gray-500"><FiSearch /></Link>
           <Link to="/cart" className="hover:text-gray-500 relative">
             <span className="bg-red-500 text-white absolute -top-2 -right-2 h-5 w-5 flex items-center justify-center rounded-full text-xs">{totalProducts}</span>
             <IoBagOutline className="text-black" />
@@ -83,13 +70,18 @@ const Header = ({ cart }) => {
                 </div>
                 <div className="mt-4">
                   {!user ? (
+                   <div>
+                     <Link to="/login-page" className="block border-1 text-sm text-center text-black mt-2">
+                    Login
+                  </Link>
                     <Link
                       to="/register-page"
-                      className="block text-sm bg-blue-500 text-white text-center py-2 rounded-md mb-2"
+                      className="block text-sm border-1   text-black text-center py-2 mt-2 mb-2"
                       onClick={() => setIsOpen(false)}
                     >
                       Create Account
                     </Link>
+                   </div>
                   ) : (
                     <button
                       onClick={handleLogout}
@@ -98,8 +90,11 @@ const Header = ({ cart }) => {
                       Logout
                     </button>
                   )}
-                  <Link to="/order" className="block text-sm text-center text-gray-700 mt-2">
+                  <Link to="/orders" className="block text-sm text-center text-gray-700 mt-2">
                     View Orders
+                  </Link>
+                  <Link to="/home-page" className="block text-sm text-center text-gray-700 mt-2">
+                    About Us
                   </Link>
                 </div>
               </div>
@@ -107,14 +102,6 @@ const Header = ({ cart }) => {
           </div>
         </div>
       </div>
-
-      {/* Mobile Menu */}
-      {menuOpen && (
-        <div className="md:hidden fixed top-16 left-0 w-full bg-white shadow-md p-5 flex flex-col gap-4 z-50">
-          <Link to="/mens" className="hover:underline" onClick={() => setMenuOpen(false)}>Mens</Link>
-          <Link to="/shoes" className="hover:underline" onClick={() => setMenuOpen(false)}>Shoes</Link>
-        </div>
-      )}
     </div>
   );
 };
