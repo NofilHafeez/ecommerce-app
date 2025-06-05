@@ -45,8 +45,8 @@ const AppContent = () => {
      {location.pathname !== "/register-page" && location.pathname !== "/login-page" && <Header cart={cart} />}
 
       <Routes>
-        <Route path="/" element={<HomePage />} />
-        <Route path="/products" element={<ProductPage fetchCartProducts={fetchCartProducts} />} />
+        <Route path="/home-page" element={<HomePage />} />
+        <Route path="/" element={<ProductPage fetchCartProducts={fetchCartProducts} />} />
         <Route path="/cart" element={<CartPage cart={cart} setCart={setCart}/>} />
         <Route path="/checkout" element={<CheckoutPage cart={cart} setCart={setCart} />} />
         <Route path="/payment" element={<PaymentPage cart={cart} setCart={setCart} />} />
