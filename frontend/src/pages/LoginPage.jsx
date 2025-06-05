@@ -45,7 +45,7 @@ const LoginPage = () => {
           {message.text}
         </div>
       )}
-
+f
       <div className="w-[400px] bg-white shadow-lg rounded-2xl p-8 text-black">
         <h2 className="text-3xl font-bold mb-4 text-center">Login</h2>
         <p className="text-center text-gray-500 mb-5">Enter your details to access your account</p>
