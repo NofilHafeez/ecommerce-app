@@ -30,13 +30,14 @@ module.exports.registerUser = async (req, res) => {
         let token = generateToken(createdUser);
 
         // Set secure cookie with token
-        res.cookie('token', token, {
-            httpOnly: true,
-            sameSite: "Lax", // Prevents CSRF issues
-            maxAge: 7 * 24 * 60 * 60 * 1000, // 7 Days Expiry
-            secure: false,  // Secure in production
-             // Required for cross-origin cookies
-        });
+          res.cookie('token', token, {
+  httpOnly: true,
+  sameSite: "Lax", // Use "Strict" or "Lax" for most cases; "None" requires `secure: true`
+  maxAge: 7 * 24 * 60 * 60 * 1000, // 7 Days
+  secure: process.env.NODE_ENV === "production", // True on Vercel
+  path: "/", // Needed to make sure it’s accessible on all routes
+});
+
 
         // Send response
         res.status(201).json({ success: ["Registration Successful!"] });
@@ -78,13 +79,14 @@ module.exports.loginUser = async (req, res) => {
         let token = generateToken(user);
 
         // Set secure cookie with token
-        res.cookie('token', token, {
-            httpOnly: true,
-            secure: false,  // Secure in production
-            sameSite: "Lax", // Prevents CSRF issues
-            maxAge: 7 * 24 * 60 * 60 * 1000, // 7 Days Expiry // Required for cross-origin cookies
-        });
-        
+          res.cookie('token', token, {
+  httpOnly: true,
+  sameSite: "Lax", // Use "Strict" or "Lax" for most cases; "None" requires `secure: true`
+  maxAge: 7 * 24 * 60 * 60 * 1000, // 7 Days
+  secure: process.env.NODE_ENV === "production", // True on Vercel
+  path: "/", // Needed to make sure it’s accessible on all routes
+});
+
 
         res.status(201).json({ success: ["login Successful!"] });
 
